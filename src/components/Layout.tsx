@@ -1,4 +1,4 @@
-import Header from "../organisms/Header"
+import Header from "./Header"
 import Footer from "../organisms/Footer"
 
 const Layout = ({ children }: any) => {

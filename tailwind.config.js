@@ -5,12 +5,14 @@ module.exports = {
       dark: "#1A1A1A",
       white: "#ffffff",
       "light-grey": "#E5E5E5",
+      grey: "#A9A9B9",
       primary: "#3C7A72",
       secondary: "#D8E4E3",
     },
     maxWidth: {
       wrapper: "980px",
       text: "680px",
+      half: "50%",
     },
     spacing: {
       0.25: "0.25rem",
