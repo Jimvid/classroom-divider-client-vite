@@ -7,7 +7,7 @@ const Student = ({ student, editMode }: StudentProps) => {
   const { deleteStudent } = classroomContext as any
   return (
     <li
-      className="p-2 bg-dark text-white flex-1 rounded-md text-center"
+      className="p-2 bg-dark text-white flex-1 rounded-md text-center font-normal text-lg"
       key={student.id}
     >
       <p>

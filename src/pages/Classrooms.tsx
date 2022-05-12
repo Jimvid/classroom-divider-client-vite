@@ -29,7 +29,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1 className="text-3xl mb-2">Classrooms</h1>
+      <h1 className="text-3xl mb-2 font-semibold">Classrooms</h1>
       <ClassroomForm
         onSubmit={onSubmit}
         onChange={onChange}

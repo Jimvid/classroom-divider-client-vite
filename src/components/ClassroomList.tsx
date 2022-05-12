@@ -1,6 +1,5 @@
 import { IClassroom } from "@/types/global"
 import { Link } from "react-router-dom"
-import Button from "./Button"
 import Icon from "@/components/Icon"
 
 const ClassroomList = ({ classrooms, onClassroomDelete }: IClassroomList) => {
@@ -15,7 +14,7 @@ const ClassroomList = ({ classrooms, onClassroomDelete }: IClassroomList) => {
           >
             <Link
               to={`${window.location.pathname}/${classroom.name}`}
-              className="flex-1 p-1"
+              className="flex-1 p-1 font-medium text-2xl"
             >
               <h2>{classroom.name}</h2>
             </Link>

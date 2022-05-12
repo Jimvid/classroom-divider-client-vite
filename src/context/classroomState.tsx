@@ -121,7 +121,6 @@ const ClassroomState = ({ children }: any) => {
 
   const deleteStudent = async (student: T.IStudent) => {
     const accessToken = await getAccessTokenSilently(tokenOptions)
-    console.log(JSON.stringify(student))
 
     const options = {
       method: "DELETE",

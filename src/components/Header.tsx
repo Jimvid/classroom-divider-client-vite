@@ -9,16 +9,21 @@ const Header = () => {
   return (
     <header className="bg-dark text-white text-sm">
       <nav className="flex justify-between max-w-wrapper mx-auto">
-        {/* <p>Classroom divider</p> */}
-        <div className="pt-1 pb-1">Classroom divider</div>
+        <div className="pt-1 pb-1">
+          <Link to="/start">Classroom divider</Link>
+        </div>
         <ul className="flex  gap-1 align-center">
-          <li className="pt-1 pb-1">
-            <Link to="/profile">Profile</Link>
-          </li>
-          <li className="pt-1 pb-1">
-            <Link to="/classrooms">My Classrooms</Link>
-          </li>
-          <li className="pt-1 pb-1">|</li>
+          {isAuthenticated && (
+            <>
+              <li className="pt-1 pb-1">
+                <Link to="/profile">Profile</Link>
+              </li>
+              <li className="pt-1 pb-1">
+                <Link to="/classrooms">My Classrooms</Link>
+              </li>
+              <li className="pt-1 pb-1">|</li>
+            </>
+          )}
           <li className="pt-1 pb-1">
             {!isLoading && isAuthenticated ? (
               <div className="flex justify-center items-center">

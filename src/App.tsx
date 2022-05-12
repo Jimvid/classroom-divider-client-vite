@@ -7,7 +7,9 @@ function App() {
   return (
     <>
       <Header />
-      <main className="max-w-wrapper mt-2 mb-2 mr-auto ml-auto"></main>
+      <main className="max-w-wrapper mt-2 mb-2 mr-auto ml-auto">
+        <Outlet />
+      </main>
       {/* <Footer /> */}
     </>
   )

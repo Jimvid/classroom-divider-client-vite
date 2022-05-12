@@ -10,6 +10,7 @@ const Profile = () => {
     <div>
       {isAuthenticated && (
         <div>
+          <h1 className="text-3xl mb-1 font-semibold">Profile</h1>
           <img className="mb-1" src={user?.picture} alt={user?.name} />
           <h2>{user?.name}</h2>
           <p>{user?.email}</p>

@@ -1,7 +1,13 @@
 import React from "react"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const Start = () => {
-  return <div>Start</div>
+  const { isAuthenticated, isLoading, loginWithRedirect } = useAuth0()
+  return !isLoading && isAuthenticated ? (
+    <div>Logged in start</div>
+  ) : (
+    <div>Logged out start</div>
+  )
 }
 
 export default Start
