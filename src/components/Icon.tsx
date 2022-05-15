@@ -1,5 +1,3 @@
-import Cog from "@/assets/cog.svg"
-
 const Icon = (p: IIcon) => {
   let icon
 
@@ -38,6 +36,24 @@ const Icon = (p: IIcon) => {
         </svg>
       )
       break
+    case "disable":
+      icon = (
+        <svg
+          width="18"
+          height="18"
+          viewBox="0 0 21 21"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path
+            fillRule="evenodd"
+            clipRule="evenodd"
+            d="M10.75 20.75C16.273 20.75 20.75 16.273 20.75 10.75C20.75 5.227 16.273 0.75 10.75 0.75C5.227 0.75 0.75 5.227 0.75 10.75C0.75 16.273 5.227 20.75 10.75 20.75ZM5.844 17.07L17.07 5.844C18.2665 7.38317 18.8598 9.30629 18.7385 11.2521C18.6171 13.1978 17.7894 15.0323 16.4108 16.4108C15.0323 17.7894 13.1978 18.6171 11.2521 18.7385C9.30629 18.8598 7.38317 18.2665 5.844 17.07ZM4.43 15.656C3.23347 14.1168 2.64016 12.1937 2.76154 10.2479C2.88291 8.30218 3.71062 6.4677 5.08916 5.08916C6.4677 3.71062 8.30218 2.88291 10.2479 2.76154C12.1937 2.64016 14.1168 3.23347 15.656 4.43L4.43 15.656Z"
+            fill="white"
+          />
+        </svg>
+      )
+      break
     case "arrow":
       icon = (
         <svg
@@ -65,7 +81,7 @@ const Icon = (p: IIcon) => {
 }
 
 interface IIcon {
-  icon: "trashcan" | "cog" | "arrow"
+  icon: "trashcan" | "cog" | "disable" | "arrow"
   className?: string
 }
 export default Icon

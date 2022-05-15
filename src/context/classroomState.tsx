@@ -87,7 +87,7 @@ const ClassroomState = ({ children }: any) => {
     }
   }
 
-  // Add student to classroom
+  // Lägg till elev to classroom
   const addStudent = async (student: T.IStudent) => {
     const accessToken = await getAccessTokenSilently(tokenOptions)
 
@@ -113,6 +113,7 @@ const ClassroomState = ({ children }: any) => {
         students: [...classroom.students, data],
       }
 
+      localStorage.clear()
       dispatch({ type: T.ADD_STUDENT, payload: classroom })
     } catch (err) {
       console.log(err)
@@ -146,10 +147,27 @@ const ClassroomState = ({ children }: any) => {
         ],
       }
 
+      localStorage.clear()
       dispatch({ type: T.DELETE_STUDENT, payload: classroom })
     } catch (err) {
       console.log(err)
     }
+  }
+
+  const disableStudent = (student: T.IStudent) => {
+    dispatch({ type: T.DISABLE_STUDENT, payload: { student } })
+  }
+
+  const enableStudent = (student: T.IStudent) => {
+    dispatch({ type: T.ENABLE_STUDENT, payload: { student } })
+  }
+
+  const groupUpStudents = (groups: any[], id: number) => {
+    dispatch({ type: T.SET_GROUPS, payload: { groups, id } })
+  }
+
+  const resetGroups = () => {
+    dispatch({ type: T.RESET_GROUPS, payload: {} })
   }
 
   return (
@@ -161,6 +179,10 @@ const ClassroomState = ({ children }: any) => {
         deleteClassroom,
         addStudent,
         deleteStudent,
+        disableStudent,
+        enableStudent,
+        groupUpStudents,
+        resetGroups,
       }}
     >
       {children}

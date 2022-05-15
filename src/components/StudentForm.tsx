@@ -36,14 +36,14 @@ const StudentForm = ({ classroom }: StudentForm) => {
         <input
           className="flex-1 border placeholder-grey border-light-grey rounded-md p-0.5 pl-1.5 pr-1.5"
           onChange={onChange}
-          placeholder="First name"
+          placeholder="Förnamn"
           name="firstName"
           value={student.firstName}
         />
         <input
           className="flex-1 border placeholder-grey border-light-grey rounded-md pl-1 pr-1"
           onChange={onChange}
-          placeholder="Last name"
+          placeholder="Efternamn"
           name="lastName"
           value={student.lastName}
         />
@@ -51,7 +51,7 @@ const StudentForm = ({ classroom }: StudentForm) => {
       <input
         className="rounded-md bg-dark text-white p-0.5 pl-1.5 pr-1.5"
         type="submit"
-        value="Add Student"
+        value="Lägg till elev"
       />
     </form>
   )

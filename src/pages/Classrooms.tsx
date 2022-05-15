@@ -6,16 +6,8 @@ import Divider from "@/components/Divider"
 
 const Dashboard = () => {
   const classroomContext = useContext(ClassroomContext)
-  const { classrooms, getClassrooms, addClassroom, deleteClassroom } =
-    classroomContext as any
-
-  const [classroom, setClassroom] = React.useState({
-    name: "",
-  })
-
-  React.useEffect(() => {
-    getClassrooms()
-  }, [classroom])
+  const { classrooms, addClassroom, deleteClassroom } = classroomContext as any
+  const [classroom, setClassroom] = React.useState({ name: "" })
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setClassroom({ ...classroom, [e.target.name]: e.target.value })
@@ -29,7 +21,7 @@ const Dashboard = () => {
 
   return (
     <div>
-      <h1 className="text-3xl mb-2 font-semibold">Classrooms</h1>
+      <h1 className="text-3xl mb-2 font-semibold">Mina klasser</h1>
       <ClassroomForm
         onSubmit={onSubmit}
         onChange={onChange}
