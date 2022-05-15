@@ -10,7 +10,7 @@ const Header = () => {
     <header className="bg-dark text-white text-sm">
       <nav className="flex justify-between max-w-wrapper mx-auto pl-1 pr-1">
         <div className="pt-1 pb-1 flex items-center">
-          <Link to="/start">StudentGrouper</Link>
+          <Link to="/start">Start</Link>
         </div>
         <ul className="flex  gap-1 align-center items-center">
           {isAuthenticated && (
@@ -36,7 +36,7 @@ const Header = () => {
             ) : (
               <Button padding={false} onClick={loginWithRedirect}>
                 <span>
-                  <span className="flex ">
+                  <span className="flex center items-center">
                     <span>Logga in</span> <Icon className="flex" icon="arrow" />
                   </span>
                 </span>

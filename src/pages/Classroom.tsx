@@ -1,5 +1,5 @@
 import React from "react"
-import { useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import { ClassroomContext } from "@/context/classroomContext"
 import { IClassroom, IStudent } from "@/types/global"
 import Student from "../components/Student"
@@ -8,6 +8,7 @@ import Button from "@/components/Button"
 import Divider from "@/components/Divider"
 import { toSubarrays, shuffle } from "@/lib/helpers"
 import StudentGroup from "@/components/StudentGroup"
+import Icon from "@/components/Icon"
 
 const Classroom = () => {
   // Context
@@ -62,26 +63,27 @@ const Classroom = () => {
       const classroom = classrooms.find((f: any) => f.name === params.name)
       setClassroom(classroom)
 
-      // if (!!classroom?.groups) {
-      //   setDisplayGroups(true)
-      // }
+      if (classroom?.groups?.length > 1) {
+        setDisplayGroups(true)
+      }
     }
   }, [classrooms])
 
   if (!classroom) return null
   return (
     <section>
-      <section>
-        <h1 className="text-3xl mb-2 font-semibold">
-          Klass: {classroom?.name}
-        </h1>
-        <div className="flex justify-between mb-1">
-          <input
-            className="md:max-w-half border placeholder-grey border-light-grey rounded-md pl-1 pr-1 flex-1"
-            placeholder="Sök efter elev"
-          />
-          <Button onClick={toggleClassroomEdit}>Redigera</Button>
-        </div>
+      <section className="flex mb-2 items-center">
+        <Link
+          className="flex bg-dark rounded-full mr-1 rotate-180 items-center justify-center hover:scale-110 transition-all"
+          style={{
+            width: "30px",
+            height: "30px",
+          }}
+          to="/classrooms"
+        >
+          <Icon className="flex scale-150" icon="arrow" />
+        </Link>
+        <h1 className="text-3xl font-semibold">Klass: {classroom?.name}</h1>
       </section>
       <section className="mb-2">
         {classroom?.students && (
@@ -105,13 +107,14 @@ const Classroom = () => {
             </label>
           </>
         )}
-        <div className="flex gap-1 mt-0.5">
+        <div className="flex gap-1 mt-1">
           <Button
             onClick={() => classroom?.students && groupUp(classroom.students)}
           >
             {displayGroups ? "Omgruppera" : "Gruppera"}
           </Button>
           <Button onClick={resetFiltering}>Återställ</Button>
+          <Button onClick={toggleClassroomEdit}>Redigera</Button>
         </div>
       </section>
       <Divider />
