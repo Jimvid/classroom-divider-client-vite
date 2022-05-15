@@ -11,7 +11,7 @@ const ClassroomForm = ({ onChange, onSubmit, name }: IClassroomForm) => {
         value={name}
       />
       <input
-        className="rounded-md bg-dark text-white p-0.5 pl-1.5 pr-1.5"
+        className="rounded-md bg-dark text-white p-0.5 pl-1.5 pr-1.5 cursor-pointer"
         type="submit"
         value="Lägg till"
       />

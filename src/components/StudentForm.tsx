@@ -18,13 +18,15 @@ const StudentForm = ({ classroom }: StudentForm) => {
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    addStudent(student)
+    if (student.firstName.length >= 2 && student.lastName.length >= 2) {
+      addStudent(student)
 
-    setStudent({
-      firstName: "",
-      lastName: "",
-      classroomId: classroom.id,
-    })
+      setStudent({
+        firstName: "",
+        lastName: "",
+        classroomId: classroom.id,
+      })
+    }
   }
 
   return (
@@ -49,9 +51,9 @@ const StudentForm = ({ classroom }: StudentForm) => {
         />
       </div>
       <input
-        className="rounded-md bg-dark text-white p-0.5 pl-1.5 pr-1.5"
+        className="rounded-md bg-dark text-white p-0.5 pl-1.5 pr-1.5 cursor-pointer"
         type="submit"
-        value="Lägg till elev"
+        value="Lägg till"
       />
     </form>
   )

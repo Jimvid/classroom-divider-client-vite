@@ -10,13 +10,16 @@ const Dashboard = () => {
   const [classroom, setClassroom] = React.useState({ name: "" })
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setClassroom({ ...classroom, [e.target.name]: e.target.value })
+    setClassroom({ ...classroom, [e.target.name]: e.target.value.trim() })
   }
 
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    addClassroom(classroom)
-    setClassroom({ name: "" })
+
+    if (classroom.name.length >= 2) {
+      addClassroom(classroom)
+      setClassroom({ name: "" })
+    }
   }
 
   return (

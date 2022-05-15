@@ -6,7 +6,7 @@ import App from "./App"
 import "./styles/index.css"
 import "./styles/modern-normalize.css"
 import "tailwindcss/tailwind.css"
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom"
+import { BrowserRouter, Routes, Route } from "react-router-dom"
 
 // Pages
 import Profile from "./pages/Profile"
