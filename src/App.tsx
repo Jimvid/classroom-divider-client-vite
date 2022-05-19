@@ -16,7 +16,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="max-w-wrapper mt-2 mb-2 mr-auto ml-auto pl-1 pr-1">
+      <main className="max-w-wrapper mt-2 mb-2 lg:mt-4 lg:mb-4 mr-auto ml-auto pl-1 pr-1">
         <Outlet />
       </main>
       {/* <Footer /> */}
