@@ -23,6 +23,8 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       redirectUri={`${window.location.origin}/start`}
       audience={import.meta.env.VITE_AUTH0_AUDIENCE}
       scope={import.meta.env.VITE_AUTH0_SCOPE}
+      useRefreshTokens={true}
+      cacheLocation="localstorage"
     >
       <ClassroomState>
         <BrowserRouter>
