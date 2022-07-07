@@ -1,6 +1,6 @@
 import React from "react"
 import { Link, useParams } from "react-router-dom"
-import { ClassroomContext } from "@/context/classroomContext"
+// import { ClassroomContext } from "@/context/classroomContext"
 import { IClassroom, IStudent } from "@/types/global"
 import Student from "../components/Student"
 import StudentForm from "../components/StudentForm"
@@ -9,33 +9,58 @@ import Divider from "@/components/Divider"
 import { toSubarrays, shuffle } from "@/lib/helpers"
 import StudentGroup from "@/components/StudentGroup"
 import Icon from "@/components/Icon"
+import { useQuery } from "react-query"
+import { getSingleClassroom } from "@/queries/getSingleClassroom"
+import { useAuth0 } from "@auth0/auth0-react"
 
 const Classroom = () => {
   // Context
-  const classroomContext = React.useContext(ClassroomContext)
-  const { classrooms, groupUpStudents, resetGroups } = classroomContext as any
+  // const classroomContext = React.useContext(ClassroomContext)
+  // const { classrooms, groupUpStudents, resetGroups } = classroomContext as any
 
   // Hooks
   const params = useParams()
+  const { getAccessTokenSilently } = useAuth0()
 
   // State
   const [editClassroom, setEditClassroom] = React.useState(false)
-  const [classroom, setClassroom] = React.useState<IClassroom | null>(null)
   const [numberOfGroups, setNumberOfGroups] = React.useState<number>(2)
   const [displayGroups, setDisplayGroups] = React.useState(false)
+
+  // Get single classroom
+  const classroomId = params.id || ""
+  if (!classroomId) return null
+
+  const {
+    isLoading,
+    error,
+    data: classroom,
+  } = useQuery<IClassroom>(classroomId, () =>
+    getSingleClassroom(classroomId, getAccessTokenSilently)
+  )
+
+  // If loading display spinner
+  if (isLoading) {
+    return <div style={{ width: "100%", textAlign: "center" }}>Loading...</div>
+  }
+
+  // If error display error
+  if (error) {
+    return <div>{"An error has occurred: " + error}</div>
+  }
 
   // Functions
   const toggleClassroomEdit = () => {
     setEditClassroom((state) => !state)
     setDisplayGroups(false)
-    resetGroups()
+    // resetGroups()
     setDisplayGroups(false)
   }
 
   const resetFiltering = () => {
     setNumberOfGroups(2)
     setDisplayGroups(false)
-    resetGroups()
+    // resetGroups()
     setDisplayGroups(false)
   }
 
@@ -48,7 +73,7 @@ const Classroom = () => {
     )
 
     if (groupOfStudents && classroom) {
-      groupUpStudents(groupOfStudents, classroom.id)
+      // groupUpStudents(groupOfStudents, classroom.id)
       setDisplayGroups(true)
     }
   }
@@ -58,16 +83,16 @@ const Classroom = () => {
     setNumberOfGroups(value)
   }
 
-  React.useEffect(() => {
-    if (classrooms) {
-      const classroom = classrooms.find((f: any) => f.name === params.name)
-      setClassroom(classroom)
+  // React.useEffect(() => {
+  //   if (classrooms) {
+  //     const classroom = classrooms.find((f: any) => f.name === params.name)
+  //     setClassroom(classroom)
 
-      if (classroom?.groups?.length > 1) {
-        setDisplayGroups(true)
-      }
-    }
-  }, [classrooms])
+  //     if (classroom?.groups?.length > 1) {
+  //       setDisplayGroups(true)
+  //     }
+  //   }
+  // }, [classrooms])
 
   if (!classroom) return null
   return (

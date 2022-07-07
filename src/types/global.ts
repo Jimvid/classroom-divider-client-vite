@@ -20,6 +20,14 @@ export interface IClassroomContext {
   deleteClassroom: () => void
 }
 
+export type IGetToken = ({
+  audience,
+  scope,
+}: {
+  audience: string
+  scope: string
+}) => any
+
 // Action types
 export const GET_CLASSROOMS = "GET_CLASSROOMS"
 export const ADD_CLASSROOM = "ADD_CLASSROOM"
