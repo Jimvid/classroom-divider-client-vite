@@ -2,11 +2,33 @@ import React from "react"
 import { ClassroomContext } from "@/context/classroomContext"
 import { IStudent } from "@/types/global"
 import Icon from "./Icon"
+import { useAuth0 } from "@auth0/auth0-react"
+import { useMutation, useQueryClient } from "react-query"
+import { deleteStudent } from "@/queries/student/deleteStudent"
+import { useParams } from "react-router-dom"
 
 const Student = ({ student, editMode }: StudentProps) => {
   const classroomContext = React.useContext(ClassroomContext)
-  const { deleteStudent, disableStudent, enableStudent } =
-    classroomContext as any
+  const { disableStudent, enableStudent } = classroomContext as any
+
+  const { getAccessTokenSilently } = useAuth0()
+  const queryClient = useQueryClient()
+
+  const params = useParams()
+  const classroomId = params.id || ""
+
+  const mutation = useMutation(
+    (student: IStudent) => {
+      return deleteStudent(student, getAccessTokenSilently)
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("classrooms")
+        queryClient.invalidateQueries(classroomId)
+      },
+    }
+  )
+
   return (
     <li
       className={`${
@@ -20,7 +42,7 @@ const Student = ({ student, editMode }: StudentProps) => {
       </p>
       {editMode && (
         <>
-          <button onClick={() => deleteStudent(student)}>
+          <button onClick={() => mutation.mutate(student)}>
             <Icon className="bg-dark" icon="trashcan" />
           </button>
           {student.disabled ? (

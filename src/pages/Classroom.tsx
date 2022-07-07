@@ -10,7 +10,7 @@ import { toSubarrays, shuffle } from "@/lib/helpers"
 import StudentGroup from "@/components/StudentGroup"
 import Icon from "@/components/Icon"
 import { useQuery } from "react-query"
-import { getSingleClassroom } from "@/queries/getSingleClassroom"
+import { getSingleClassroom } from "@/queries/classroom/getSingleClassroom"
 import { useAuth0 } from "@auth0/auth0-react"
 
 const Classroom = () => {

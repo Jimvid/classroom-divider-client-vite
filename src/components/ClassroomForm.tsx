@@ -1,5 +1,5 @@
 import React from "react"
-import { createClassroom } from "@/queries/createClassroom"
+import { createClassroom } from "@/queries/classroom/createClassroom"
 import { useAuth0 } from "@auth0/auth0-react"
 import { useMutation, useQueryClient } from "react-query"
 import { IClassroom } from "@/types/global"

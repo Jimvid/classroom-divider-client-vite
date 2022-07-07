@@ -2,9 +2,9 @@ import { IClassroom } from "@/types/global"
 import { Link } from "react-router-dom"
 import Icon from "@/components/Icon"
 import { useMutation, useQuery, useQueryClient } from "react-query"
-import { getAllClassrooms } from "@/queries/getAllClassrooms"
+import { getAllClassrooms } from "@/queries/classroom/getAllClassrooms"
 import { useAuth0 } from "@auth0/auth0-react"
-import { deleteClassroom } from "@/queries/deleteClassroom"
+import { deleteClassroom } from "@/queries/classroom/deleteClassroom"
 
 const ClassroomList = () => {
   const { getAccessTokenSilently } = useAuth0()
