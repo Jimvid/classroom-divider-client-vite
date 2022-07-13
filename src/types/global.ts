@@ -13,12 +13,25 @@ export interface IStudent {
   lastName: string
 }
 
+export interface IStudentGroup {
+  id: string
+  students: IStudent[]
+}
+
 export interface IClassroomContext {
   classrooms: IClassroom[]
   getClassrooms: () => IClassroom[]
   addClassroom: () => void
   deleteClassroom: () => void
 }
+
+export type IGetToken = ({
+  audience,
+  scope,
+}: {
+  audience: string
+  scope: string
+}) => any
 
 // Action types
 export const GET_CLASSROOMS = "GET_CLASSROOMS"

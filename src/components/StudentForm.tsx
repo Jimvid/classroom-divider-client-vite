@@ -1,11 +1,15 @@
+import React from "react"
 import { ClassroomContext } from "@/context/classroomContext"
 import { IClassroom, IStudent } from "@/types/global"
-import React from "react"
+import { createStudent } from "@/queries/student/createStudent"
+import { useMutation, useQueryClient } from "react-query"
+import { useAuth0 } from "@auth0/auth0-react"
+import { useParams } from "react-router-dom"
 
 const StudentForm = ({ classroom }: StudentForm) => {
-  const classroomContext = React.useContext(ClassroomContext)
-  const { addStudent } = classroomContext as any
-
+  const params = useParams()
+  const classroomId = params.id || ""
+  const { getAccessTokenSilently } = useAuth0()
   const [student, setStudent] = React.useState<IStudent>({
     firstName: "",
     lastName: "",
@@ -16,10 +20,24 @@ const StudentForm = ({ classroom }: StudentForm) => {
     setStudent({ ...student, [e.target.name]: e.target.value })
   }
 
+  const queryClient = useQueryClient()
+
+  const mutation = useMutation(
+    (student: IStudent) => {
+      return createStudent(student, getAccessTokenSilently)
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("classrooms")
+        queryClient.invalidateQueries(classroomId)
+      },
+    }
+  )
+
   const onSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
     if (student.firstName.length >= 2 && student.lastName.length >= 2) {
-      addStudent(student)
+      mutation.mutate(student)
 
       setStudent({
         firstName: "",

@@ -2,15 +2,40 @@ import React from "react"
 import { ClassroomContext } from "@/context/classroomContext"
 import { IStudent } from "@/types/global"
 import Icon from "./Icon"
+import { useAuth0 } from "@auth0/auth0-react"
+import { useMutation, useQueryClient } from "react-query"
+import { deleteStudent } from "@/queries/student/deleteStudent"
+import { useParams } from "react-router-dom"
 
 const Student = ({ student, editMode }: StudentProps) => {
   const classroomContext = React.useContext(ClassroomContext)
-  const { deleteStudent, disableStudent, enableStudent } =
+  const { disabledStudentIds, disableStudent, enableStudent } =
     classroomContext as any
+
+  const { getAccessTokenSilently } = useAuth0()
+  const queryClient = useQueryClient()
+
+  const params = useParams()
+  const classroomId = params.id || ""
+
+  const mutation = useMutation(
+    (student: IStudent) => {
+      return deleteStudent(student, getAccessTokenSilently)
+    },
+    {
+      onSuccess: () => {
+        queryClient.invalidateQueries("classrooms")
+        queryClient.invalidateQueries(classroomId)
+      },
+    }
+  )
+
+  const isStudentDisabled = disabledStudentIds.includes(student.id)
+
   return (
     <li
       className={`${
-        student.disabled ? "disabled" : ""
+        isStudentDisabled ? "disabled" : ""
       } p-2 bg-dark text-white flex-1 rounded-md text-center font-normal text-lg`}
       key={student.id}
     >
@@ -20,15 +45,15 @@ const Student = ({ student, editMode }: StudentProps) => {
       </p>
       {editMode && (
         <>
-          <button onClick={() => deleteStudent(student)}>
+          <button onClick={() => mutation.mutate(student)}>
             <Icon className="bg-dark" icon="trashcan" />
           </button>
-          {student.disabled ? (
-            <button onClick={() => enableStudent(student)}>
+          {isStudentDisabled ? (
+            <button onClick={() => enableStudent(student.id)}>
               <Icon className="bg-dark" icon="disable" />
             </button>
           ) : (
-            <button onClick={() => disableStudent(student)}>
+            <button onClick={() => disableStudent(student.id)}>
               <Icon className="bg-dark" icon="disable" />
             </button>
           )}
