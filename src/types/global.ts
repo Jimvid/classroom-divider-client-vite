@@ -13,6 +13,11 @@ export interface IStudent {
   lastName: string
 }
 
+export interface IStudentGroup {
+  id: string
+  students: IStudent[]
+}
+
 export interface IClassroomContext {
   classrooms: IClassroom[]
   getClassrooms: () => IClassroom[]

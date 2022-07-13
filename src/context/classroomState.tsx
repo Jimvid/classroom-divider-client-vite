@@ -5,24 +5,24 @@ import * as T from "../types/global"
 
 const ClassroomState = ({ children }: any) => {
   const [state, dispatch] = React.useReducer(classroomReducer, {
-    groups: null,
-    disabledStudents: [],
+    groups: [],
+    disabledStudentIds: [],
   })
 
-  const disableStudent = (student: T.IStudent) => {
-    dispatch({ type: T.DISABLE_STUDENT, payload: { student } })
+  const disableStudent = (id: string) => {
+    dispatch({ type: T.DISABLE_STUDENT, payload: id })
   }
 
-  const enableStudent = (student: T.IStudent) => {
-    dispatch({ type: T.ENABLE_STUDENT, payload: { student } })
+  const enableStudent = (id: string) => {
+    dispatch({ type: T.ENABLE_STUDENT, payload: id })
   }
 
-  const groupUpStudents = (groups: any[], id: number) => {
+  const groupUpStudents = (groups: T.IStudentGroup[], id: number) => {
     dispatch({ type: T.SET_GROUPS, payload: { groups, id } })
   }
 
-  const resetGroups = () => {
-    dispatch({ type: T.RESET_GROUPS, payload: {} })
+  const resetGroup = (classroomId: T.IStudentGroup) => {
+    dispatch({ type: T.RESET_GROUPS, payload: classroomId })
   }
 
   return (
@@ -32,7 +32,7 @@ const ClassroomState = ({ children }: any) => {
         disableStudent,
         enableStudent,
         groupUpStudents,
-        resetGroups,
+        resetGroup,
       }}
     >
       {children}

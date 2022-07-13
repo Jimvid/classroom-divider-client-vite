@@ -9,7 +9,8 @@ import { useParams } from "react-router-dom"
 
 const Student = ({ student, editMode }: StudentProps) => {
   const classroomContext = React.useContext(ClassroomContext)
-  const { disableStudent, enableStudent } = classroomContext as any
+  const { disabledStudentIds, disableStudent, enableStudent } =
+    classroomContext as any
 
   const { getAccessTokenSilently } = useAuth0()
   const queryClient = useQueryClient()
@@ -29,10 +30,12 @@ const Student = ({ student, editMode }: StudentProps) => {
     }
   )
 
+  const isStudentDisabled = disabledStudentIds.includes(student.id)
+
   return (
     <li
       className={`${
-        student.disabled ? "disabled" : ""
+        isStudentDisabled ? "disabled" : ""
       } p-2 bg-dark text-white flex-1 rounded-md text-center font-normal text-lg`}
       key={student.id}
     >
@@ -45,12 +48,12 @@ const Student = ({ student, editMode }: StudentProps) => {
           <button onClick={() => mutation.mutate(student)}>
             <Icon className="bg-dark" icon="trashcan" />
           </button>
-          {student.disabled ? (
-            <button onClick={() => enableStudent(student)}>
+          {isStudentDisabled ? (
+            <button onClick={() => enableStudent(student.id)}>
               <Icon className="bg-dark" icon="disable" />
             </button>
           ) : (
-            <button onClick={() => disableStudent(student)}>
+            <button onClick={() => disableStudent(student.id)}>
               <Icon className="bg-dark" icon="disable" />
             </button>
           )}
